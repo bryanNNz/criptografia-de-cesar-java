@@ -40,14 +40,17 @@ public class CriptografiaService {
 		
 		char[] texto = mensagem.getTextoFormatado().toCharArray();
 		StringBuilder mensagemCriptografada = new StringBuilder("");
+		int modAux = 0;
 		
 		for(int i = 0; i < texto.length; i++) {
 			if(texto[i] == '#')
 				mensagemCriptografada.append('#');
 			
 			for(int z = 0; z < ALFABETO.length; z++) {
-				if(texto[i] == ALFABETO[z])
-					mensagemCriptografada.append(ALFABETO[(z - mensagem.getChave()) % 26]);
+				if(texto[i] == ALFABETO[z]) {
+					modAux = (z - mensagem.getChave()) % 26;
+					mensagemCriptografada.append(ALFABETO[modAux < 0 ? modAux + 26 : modAux]);			
+				}
 			}
 		}
 		
