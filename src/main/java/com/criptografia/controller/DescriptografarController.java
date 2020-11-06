@@ -21,7 +21,7 @@ public class DescriptografarController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/descriptografar")
 	public ResponseEntity<String> descriptografar(@RequestBody Mensagem mensagem) throws CriptografiaException {
-		String mensagemCriptografada = service.criptografar(mensagem);
+		String mensagemCriptografada = service.descriptografar(mensagem);
 		return ResponseEntity.status(HttpStatus.CREATED).body(mensagemCriptografada);
 	}
 }
