@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.criptografia</groupId>
 	<artifactId>CriptografiaDeCesar</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>CriptografiaDeCesar</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -34,6 +34,12 @@
 		    <groupId>org.springframework.cloud</groupId>
 		    <artifactId>spring-cloud-starter-config</artifactId>
 		    <version>${spring.cloud.config.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
