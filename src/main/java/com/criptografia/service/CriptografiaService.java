@@ -13,7 +13,7 @@ public class CriptografiaService {
 	@Autowired
 	private MensagemValidation mensagemValidation;
 
-	private static final char[] ALFABETO =  CriptografiaUtil.getAlfabeto();
+	private static final String ALFABETO =  CriptografiaUtil.getAlfabeto();
 	
 	
 	public String criptografar(Mensagem mensagem) throws CriptografiaException {
@@ -21,15 +21,17 @@ public class CriptografiaService {
 		
 		char[] texto = mensagem.getTextoFormatado().toCharArray();
 		StringBuilder mensagemCriptografada = new StringBuilder("");
+		int index = 0;
 		
-		for(int i = 0; i < texto.length; i++) {
-			if(texto[i] == '#')
+		for(char c : texto) {
+			if(c == '#') {
 				mensagemCriptografada.append('#');
-			
-			for(int z = 0; z < ALFABETO.length; z++) {
-				if(texto[i] == ALFABETO[z])
-					mensagemCriptografada.append(ALFABETO[(z + mensagem.getChave()) % 26]);
+				continue;
 			}
+			
+			index = ALFABETO.indexOf(c);
+			mensagemCriptografada.append(ALFABETO.charAt((index + mensagem.getChave()) % 26));
+			
 		}
 		
 		return mensagemCriptografada.toString().replace("#", " ");
@@ -41,17 +43,17 @@ public class CriptografiaService {
 		char[] texto = mensagem.getTextoFormatado().toCharArray();
 		StringBuilder mensagemCriptografada = new StringBuilder("");
 		int modAux = 0;
+		int index = 0;
 		
-		for(int i = 0; i < texto.length; i++) {
-			if(texto[i] == '#')
+		for(char c : texto) {
+			if(c == '#') {
 				mensagemCriptografada.append('#');
-			
-			for(int z = 0; z < ALFABETO.length; z++) {
-				if(texto[i] == ALFABETO[z]) {
-					modAux = (z - mensagem.getChave()) % 26;
-					mensagemCriptografada.append(ALFABETO[modAux < 0 ? modAux + 26 : modAux]);			
-				}
+				continue;
 			}
+			
+			index = ALFABETO.indexOf(c);
+			modAux = (index - mensagem.getChave()) % 26;
+			mensagemCriptografada.append(ALFABETO.charAt(modAux < 0 ? modAux + 26 : modAux));
 		}
 		
 		return mensagemCriptografada.toString().replace("#", " ");
